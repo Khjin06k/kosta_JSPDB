@@ -1,4 +1,4 @@
-package com.example.kosta_jspdb.servlet;
+package com.example.kosta_jspdb.controller;
 
 import com.example.kosta_jspdb.dto.Member;
 import com.example.kosta_jspdb.service.MemberService;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Join extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.getRequestDispatcher("/join.jsp").forward(req, res);
+        req.getRequestDispatcher("/bank/join.jsp").forward(req, res);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Join extends HttpServlet {
 
         MemberService service = new MemberService();
         service.join(member);
-        req.getRequestDispatcher("/login.jsp").forward(req, res);
+        req.getRequestDispatcher("/bank/login.jsp").forward(req, res);
 
     }
 }

@@ -1,11 +1,10 @@
 package com.example.kosta_jspdb.dao;
 
-import com.example.kosta_jspdb.dto.JdbcUtil;
 import com.example.kosta_jspdb.dto.Member;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class MemberDAO {
 
@@ -45,5 +44,39 @@ public class MemberDAO {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public Member selectMember(String id){
+        Connection conn = JdbcUtil.getConnection();
+        String sql = "select * from member where id=?";
+
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Member member = null;
+        try{
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            if(rs != null && rs.next()){
+                member = new Member();
+                member.setId(rs.getString("id"));
+                member.setPassword(rs.getString("password"));
+                member.setName(rs.getString("name"));
+                member.setAddress(rs.getString("address"));
+                member.setEmail(rs.getString("email"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(rs != null) rs.close();
+                if(pstmt != null) pstmt.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        JdbcUtil.close(conn);
+        return member;
     }
 }

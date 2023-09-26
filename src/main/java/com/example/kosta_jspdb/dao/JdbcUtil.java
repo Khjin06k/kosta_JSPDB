@@ -1,4 +1,4 @@
-package com.example.kosta_jspdb.dto;
+package com.example.kosta_jspdb.dao;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
